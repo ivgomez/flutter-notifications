@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456718198042",
+    "project_id": "flutter-project-c5b0a",
+    "storage_bucket": "flutter-project-c5b0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456718198042:android:b6406c274995ace362b8a3",
+        "android_client_info": {
+          "package_name": "com.idgarcia.push_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwd0ez5Kqq7lRMuYpAgVpBs0Uobu5jXzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
