@@ -4,7 +4,7 @@ class NotificationsState extends Equatable {
 
   final AuthorizationStatus status;
   //TODO: Replace dynamic for notification model
-  final List<dynamic> notifications;
+  final List<PushMessage> notifications;
 
   const NotificationsState({
     this.status = AuthorizationStatus.notDetermined,
@@ -13,7 +13,7 @@ class NotificationsState extends Equatable {
 
   NotificationsState copyWith({
     AuthorizationStatus? status,
-    List<dynamic>? notifications,
+    List<PushMessage>? notifications,
   }) {
     return NotificationsState(
       status: status ?? this.status,
