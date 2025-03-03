@@ -84,6 +84,13 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         : message.notification?.apple?.imageUrl,
     );
 
+    LocalNotifications.showLocalNotification(
+      id: notification.messageId.hashCode,
+      title: notification.title,
+      body: notification.body,
+      data: notification.data.toString(),
+    );
+
     add( NotificationReceived( notification));
     
   }
@@ -103,7 +110,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       sound: true,
     );
     // TODO: Request permission for local notifications
-    await requestPermissionLocalNotifications();
+    await LocalNotifications.requestPermissionLocalNotifications();
     add( NotificationStatusChanged( settings.authorizationStatus));
   }
 
