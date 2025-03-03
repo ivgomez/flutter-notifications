@@ -73,7 +73,7 @@ class _HandleNotificationInteractionsState extends State<HandleNotificationInter
 
     final messageId = message.messageId?.replaceAll(':', '').replaceAll('%', '') ?? '';
 
-    appRouter.push('/push-details/${messageId}');
+    appRouter.push('/push-details/$messageId');
   }
 
   @override
