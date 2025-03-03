@@ -101,7 +101,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         id: notification.messageId.hashCode,
         title: notification.title,
         body: notification.body,
-        data: notification.data.toString(),
+        data: notification.messageId,
       );
     }
 
