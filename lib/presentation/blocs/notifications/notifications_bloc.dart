@@ -23,7 +23,19 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  NotificationsBloc() : super(const NotificationsState()) {
+  final Future<void> Function()? requestLocalNotificationsPermission;
+  final void Function({
+    required int id,
+    String? title,
+    String? body,
+    String? data,
+  })? showLocalNotification;
+
+  NotificationsBloc({
+    required this.requestLocalNotificationsPermission,
+    this.showLocalNotification,
+  }) : super(const NotificationsState()) {
+
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushNotificationReceived);
     // check the notification status
@@ -84,12 +96,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         : message.notification?.apple?.imageUrl,
     );
 
-    LocalNotifications.showLocalNotification(
-      id: notification.messageId.hashCode,
-      title: notification.title,
-      body: notification.body,
-      data: notification.data.toString(),
-    );
+    if (showLocalNotification != null) {
+      showLocalNotification!(
+        id: notification.messageId.hashCode,
+        title: notification.title,
+        body: notification.body,
+        data: notification.data.toString(),
+      );
+    }
 
     add( NotificationReceived( notification));
     
@@ -109,8 +123,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       provisional: false,
       sound: true,
     );
-    // TODO: Request permission for local notifications
-    await LocalNotifications.requestPermissionLocalNotifications();
+    // Request permission for local notifications
+    if( requestLocalNotificationsPermission != null ) {
+      await requestLocalNotificationsPermission!();
+      //await LocalNotifications.requestPermissionLocalNotifications();
+    }
+
     add( NotificationStatusChanged( settings.authorizationStatus));
   }
 
